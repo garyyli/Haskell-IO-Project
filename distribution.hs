@@ -31,4 +31,13 @@
     * Letters that do not occur in the text are not listed in the output at all.
 -}
 
-main = putStrLn "Put your program here!"
+import Data.List
+import Data.Char (toLower)
+
+finalString stringText = sortBy (\x y -> length y `compare` length x) (group (sort [toLower x | x <- stringText, x `elem`['a'..'z'] || x `elem`['A'..'Z']]))
+
+main = do
+  putStrLn "Please enter a string of text (the bigger the better):"
+  stringText <- getLine
+  putStrLn ("The distribution of characters in "++show stringText++" is:")
+  mapM_ putStrLn $ finalString stringText
